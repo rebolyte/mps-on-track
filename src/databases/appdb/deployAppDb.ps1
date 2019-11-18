@@ -1,8 +1,8 @@
 param(
-	[string]$Environment="production"
+	[string]$Environment = "PROD"
 )
 
-$connStr = "Host=localhost;Port=1401;Database=DataLibrary;Username=SA;Password=HotSprocket123!;"
+$connStr = "Server=localhost,1401;User Id=SA;Password=HotSprocket123!;"
 
 rh --connectionstring $connStr --donotcreatedatabase --databasetype=sqlserver --silent --files "." --environment $Environment --warnandignoreononetimescriptchanges
 

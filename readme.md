@@ -31,7 +31,7 @@ Reference the [SQL Server on Docker documentation](https://docs.microsoft.com/en
 > dotnet tool install --global dotnet-roundhouse --version 1.1.0
 ```
 
-### Initialize databases
+### Initialize app database
 
 1. In Powershell, run migrations (optionally inserting test data):
 
@@ -40,7 +40,7 @@ Reference the [SQL Server on Docker documentation](https://docs.microsoft.com/en
 > .\deployAppDb.ps1 -Environment "TEST"
 ```
 
-Specify "TEST" as the enviroment to seed the database with test data.
+Specify "TEST" as the environment to seed the database with test data. The default is "PROD".
 
 ## Running the API
 
