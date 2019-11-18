@@ -1,0 +1,33 @@
+{
+  "name": "@mps/api",
+  "private": true,
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "shx rm -rf ./dist && shx rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc --build tsconfig.json",
+    "go": "node dist/index.js",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "watch": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "mssql": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2",
+    "@types/helmet": "^0.0.45",
+    "@types/jsonwebtoken": "^8.3.5",
+    "@types/mssql": "^4.3.1",
+    "dotenv": "^8.2.0",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.5.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.7.2"
+  }
+}

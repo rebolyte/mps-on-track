@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"jsx": "react",
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictPropertyInitialization": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"baseUrl": "./",
+		"paths": {
+			"@mps/*": ["packages/*/src"]
+		}
+	},
+	"references": [
+		{
+			"path": "packages/api"
+		},
+		{
+			"path": "packages/client"
+		}
+	],
+	"exclude": ["node_modules", "dist", "**/__mocks__/**"]
+}

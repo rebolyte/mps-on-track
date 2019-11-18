@@ -1,0 +1,54 @@
+{
+	"name": "root",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"api:watch": "lerna run watch --stream --scope @mps/api",
+		"api:start": "lerna run start --stream --scope @mps/api",
+		"api:build": "lerna run build --stream --scope @mps/api",
+		"client:dev": "lerna run dev --stream --scope @mps/client",
+		"client:start": "lerna run start --stream --scope @mps/client",
+		"client:build": "lerna run build --stream --scope @mps/client",
+		"test": "jest",
+		"fmt": "prettier --write \"packages/*/src/**/*.{js,ts}\" --loglevel warn",
+		"lint": "eslint \"packages/*/src/**/*.{js,ts}\""
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn fmt && yarn lint"
+		}
+	},
+	"devDependencies": {
+		"@types/jest": "^24.0.19",
+		"@types/node": "^12.11.1",
+		"@typescript-eslint/eslint-plugin": "^2.4.0",
+		"@typescript-eslint/parser": "^2.4.0",
+		"eslint": "^6.5.1",
+		"eslint-config-prettier": "^6.4.0",
+		"eslint-config-standard": "^14.1.0",
+		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-jest": "^22.19.0",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-node": "^10.0.0",
+		"eslint-plugin-prettier": "^3.1.1",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-react": "^7.16.0",
+		"eslint-plugin-react-hooks": "^2.3.0",
+		"eslint-plugin-standard": "^4.0.1",
+		"husky": "^3.0.9",
+		"jest": "^24.9.0",
+		"lerna": "^3.18.1",
+		"nodemon": "^1.19.4",
+		"prettier": "^1.19.1",
+		"shx": "^0.3.2",
+		"ts-jest": "^24.1.0",
+		"ts-node": "^8.4.1",
+		"tsconfig-paths": "^3.9.0",
+		"typescript": "^3.7.2"
+	},
+	"dependencies": {
+		"find-config": "^1.0.0"
+	}
+}
