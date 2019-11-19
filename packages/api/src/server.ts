@@ -8,7 +8,7 @@ import winston from 'winston';
 import expressWinston from 'express-winston';
 
 import { Controller } from './interfaces';
-import { errorHandlingMiddleware } from './middleware';
+import { errorHandlingMiddleware, formatResponseMiddleware } from './middleware';
 
 const PORT = process.env.API_PORT || 4000;
 const { JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } = process.env;
@@ -34,6 +34,7 @@ export default class Server {
 		this.initializeSecurity();
 		this.initializeMiddlewares();
 		this.initializeAuthentication();
+		this.initializeResponseProcessing();
 		this.initializeControllers(controllers);
 		this.initializeErrorHandling();
 	}
@@ -81,6 +82,10 @@ export default class Server {
 		});
 
 		this.app.use('/api', apiRoutes);
+	}
+
+	private initializeResponseProcessing() {
+		this.app.use(formatResponseMiddleware);
 	}
 
 	private initializeErrorHandling() {

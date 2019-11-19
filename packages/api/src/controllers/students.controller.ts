@@ -20,7 +20,7 @@ export default class StudentController implements Controller {
 
 		try {
 			const data: any = { a: 1, id }; // retrieve data here
-			res.send(data);
+			res.json(data);
 		} catch (err) {
 			next(err);
 		}

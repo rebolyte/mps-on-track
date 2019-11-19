@@ -5,7 +5,7 @@ import { RequestHandler } from 'express';
  */
 const authorizationMiddleware: RequestHandler = (req, res, next) => {
 	if (req.user.uniqueStudentId !== req.params.id) {
-		res.status(403).send('Unauthorized');
+		res.status(403).json('Unauthorized');
 	} else {
 		next();
 	}
