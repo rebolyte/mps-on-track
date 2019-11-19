@@ -48,7 +48,7 @@
 		"guard-for-in": 1,
 		"default-case": 1,
 		"dot-location": [2, "property"],
-		"new-cap": 1,
+		"new-cap": 0,
 		"no-trailing-spaces": 1,
 		"eol-last": 1,
 		"block-spacing": [1, "always"],
