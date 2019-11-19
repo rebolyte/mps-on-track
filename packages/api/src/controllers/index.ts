@@ -1,4 +1,4 @@
 import BaseController from './base.controller';
-import ReportController from './reports.controller';
+import StudentController from './students.controller';
 
-export default [BaseController, ReportController];
+export default [BaseController, StudentController];

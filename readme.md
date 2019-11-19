@@ -71,7 +71,7 @@ If running `lerna` doesn't work, make sure you add the result of `yarn global bi
 5. Run API:
 
 ```sh
-> yarn start
+> yarn api:start
 ```
 
 ## Running the web client

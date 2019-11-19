@@ -6,3 +6,4 @@ src/*/dist
 *.tsbuildinfo
 
 .env
+packages/*/dist

@@ -11,7 +11,7 @@ import { Controller } from './interfaces';
 import { errorHandlingMiddleware } from './middleware';
 
 const PORT = process.env.API_PORT || 4000;
-const JWT_SECRET = process.env.JWT_SECRET;
+const { JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } = process.env;
 
 export default class Server {
 	public app: express.Application;
@@ -64,9 +64,11 @@ export default class Server {
 	private initializeAuthentication() {
 		this.app.use(
 			expressJwt({
-				secret: JWT_SECRET as string
+				secret: JWT_SECRET as string,
+				audience: JWT_AUDIENCE as string,
+				issuer: JWT_ISSUER as string
 			}).unless({
-				path: ['/api', '/api/health']
+				path: ['/api', '/api/health', '/api/token'] // token route for debugging only
 			})
 		);
 	}

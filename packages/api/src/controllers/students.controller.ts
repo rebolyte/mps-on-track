@@ -1,9 +1,10 @@
 import { Router, RequestHandler } from 'express';
 
 import { Controller } from '../interfaces';
+import { authorizationMiddleware } from '../middleware';
 
-export default class ReportController implements Controller {
-	public path = '/reports';
+export default class StudentController implements Controller {
+	public path = '/students';
 	public router: Router = Router();
 
 	constructor() {
@@ -11,7 +12,7 @@ export default class ReportController implements Controller {
 	}
 
 	private initializeRoutes() {
-		this.router.get(`${this.path}/:id`, this.getOne);
+		this.router.get(`${this.path}/:id/report1`, authorizationMiddleware, this.getOne);
 	}
 
 	private getOne: RequestHandler = async (req, res, next) => {
