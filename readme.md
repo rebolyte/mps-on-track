@@ -38,7 +38,7 @@ Reference the [SQL Server on Docker documentation](https://docs.microsoft.com/en
 1. In Powershell, run migrations (optionally inserting test data):
 
 ```sh
-> cd .\src\databases\appdb\
+> cd .\packages\databases\appdb\
 > .\deployAppDb.ps1 -Environment "TEST"
 ```
 

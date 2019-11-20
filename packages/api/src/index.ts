@@ -11,9 +11,9 @@ import controllers from './controllers';
 
 async function main() {
 	try {
-		await connect();
+		const pool = await connect();
 
-		const server = new Server(controllers.map(Controller => new Controller()));
+		const server = new Server(controllers.map(Controller => new Controller(pool)));
 
 		server.listen();
 	} catch (err) {

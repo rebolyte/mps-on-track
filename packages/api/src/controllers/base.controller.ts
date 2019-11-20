@@ -1,4 +1,5 @@
 import { Router, RequestHandler } from 'express';
+import * as sql from 'mssql';
 import jwt from 'jsonwebtoken';
 import url from 'url';
 
@@ -7,10 +8,12 @@ import { Controller } from '../interfaces';
 const { JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } = process.env;
 
 export default class BaseController implements Controller {
+	private db: sql.ConnectionPool;
 	public path = '/';
 	public router: Router = Router();
 
-	constructor() {
+	constructor(db: sql.ConnectionPool) {
+		this.db = db;
 		this.initializeRoutes();
 	}
 

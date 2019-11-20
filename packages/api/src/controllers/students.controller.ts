@@ -1,17 +1,23 @@
 import { Router, RequestHandler } from 'express';
+import * as sql from 'mssql';
 
 import { Controller } from '../interfaces';
 import { authorizationMiddleware } from '../middleware';
+import { StudentService } from '../services';
 
 export default class StudentController implements Controller {
-	public path = '/students';
-	public router: Router = Router();
+	private readonly studentService: StudentService;
+	public readonly path = '/students';
+	public readonly router: Router = Router();
 
-	constructor() {
+	constructor(db: sql.ConnectionPool) {
+		this.studentService = new StudentService(db);
+
 		this.initializeRoutes();
 	}
 
 	private initializeRoutes() {
+		// this.router.get(`${this.path}/:id/report1`, authorizationMiddleware('id'), this.getOne);
 		this.router.get(`${this.path}/:id/report1`, authorizationMiddleware, this.getOne);
 	}
 
@@ -19,7 +25,8 @@ export default class StudentController implements Controller {
 		const { id } = req.params;
 
 		try {
-			const data: any = { a: 1, id }; // retrieve data here
+			const data = await this.studentService.getReport1ForStudent(id);
+
 			res.json(data);
 		} catch (err) {
 			next(err);
