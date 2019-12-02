@@ -1,5 +1,4 @@
 import * as sql from 'mssql';
-// import stream from 'stream';
 
 import { StudentCourseCredit } from '../models';
 
@@ -16,19 +15,5 @@ export default class StudentService {
 		);
 
 		return data.recordset;
-
-		// const stringifier = new stream.Transform({
-		// 	transform(data, enc, cb) {
-		// 		this.push(JSON.stringify(data));
-		// 		cb();
-		// 	},
-		// 	objectMode: true
-		// });
-
-		// const request = new sql.Request(this.db);
-
-		// (request.pipe(stringifier) as stream.Transform).pipe(res);
-
-		// request.query('SELECT TOP (5) * FROM [gradCredits].[StudentCourseCredits]');
 	}
 }

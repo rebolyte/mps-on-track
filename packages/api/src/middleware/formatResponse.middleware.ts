@@ -5,7 +5,7 @@ import { ApiResponse } from '../interfaces';
 const isProd = process.env.ENV === 'prod';
 
 const formatResponse = (result: any, message?: string): ApiResponse => {
-	let errors: any[] | undefined;
+	let errors: any[] = [];
 	let data: any = null;
 
 	if (result && result instanceof Array) {

@@ -17,8 +17,7 @@ export default class StudentController implements Controller {
 	}
 
 	private initializeRoutes() {
-		// this.router.get(`${this.path}/:id/report1`, authorizationMiddleware('id'), this.getOne);
-		this.router.get(`${this.path}/:id/report1`, authorizationMiddleware, this.getOne);
+		this.router.get(`${this.path}/:id/report1`, authorizationMiddleware('id'), this.getOne);
 	}
 
 	private getOne: RequestHandler = async (req, res, next) => {

@@ -1,0 +1,28 @@
+[data-reach-tab-panel] {
+	@apply outline-none;
+}
+
+[data-reach-tab-list] {
+	@apply flex mb-2;
+}
+
+[data-reach-tab] {
+	@apply inline-block border-0 m-0 px-2 py-1;
+}
+
+/* override Tailwind button base style */
+[data-reach-tab]:focus {
+	@apply outline-none;
+}
+
+[data-reach-tab]:active {
+	background: hsla(0, 0%, 0%, 0.05);
+}
+
+[data-reach-tab]:disabled {
+	@apply opacity-50 cursor-default;
+}
+
+[data-reach-tab][data-selected] {
+	@apply border-b-2 border-blue-600;
+}

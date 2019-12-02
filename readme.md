@@ -46,7 +46,7 @@ Specify "TEST" as the environment to seed the database with test data. The defau
 
 ## Running the API
 
-1. Rename `.env.default` to `.env` and update its config values.
+1. Copy `.env.default` to a new file named `.env` and update its config values.
 
 2. Install [Yarn](https://yarnpkg.com/en/docs/install). On Windows, using [Chocolatey](https://chocolatey.org/) is the easiest way to install and keep Yarn up to date.
 
