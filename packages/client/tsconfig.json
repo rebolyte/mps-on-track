@@ -6,5 +6,6 @@
 		"outDir": "./dist",
 		"rootDir": "./src"
 	},
+	"references": [{ "path": "../api" }],
 	"include": ["src/**/*"]
 }

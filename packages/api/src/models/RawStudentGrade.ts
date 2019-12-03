@@ -1,4 +1,4 @@
-interface RawStudentGrade {
+export interface RawStudentGrade {
 	StudentNameSortOrder: number | null;
 	StudentUSI: number | null;
 	StudentID: string | null;
@@ -30,5 +30,3 @@ interface RawStudentGrade {
 	DisplayOrder: number | null;
 	SurnameGroup: string | null;
 }
-
-export default RawStudentGrade;

@@ -1,6 +1,6 @@
 import * as sql from 'mssql';
 
-import { StudentChartData } from '../models';
+import { StudentChartDataResponse } from '../models';
 
 export default class StudentService {
 	private db: sql.ConnectionPool;
@@ -10,7 +10,7 @@ export default class StudentService {
 	}
 
 	async getChartDataForStudent(studentId: string) {
-		const data = await this.db.query<StudentChartData>`SELECT GradRequirement,
+		const data = await this.db.query<StudentChartDataResponse>`SELECT GradRequirement,
 			EarnedGradCredits,
 			RemainingCreditsRequiredByLastGradedQuarter,
 			RemainingCreditsRequiredByGraduation,

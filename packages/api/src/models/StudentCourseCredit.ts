@@ -1,4 +1,4 @@
-interface StudentCourseCredit {
+export interface StudentCourseCredit {
 	StudentNameSortOrder: number | null;
 	StudentUSI: number | null;
 	StudentID: string | null;
@@ -15,5 +15,3 @@ interface StudentCourseCredit {
 	Term: string | null;
 	GradRequirementGroup: string | null;
 }
-
-export default StudentCourseCredit;

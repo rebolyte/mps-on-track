@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { ApiResponse } from '../interfaces';
+import { ApiResponse } from '../models';
 
 const isProd = process.env.ENV === 'prod';
 
-const formatResponse = (result: any, message?: string): ApiResponse => {
+const formatResponse = (result: any, message?: string): ApiResponse<any> => {
 	let errors: any[] = [];
 	let data: any = null;
 

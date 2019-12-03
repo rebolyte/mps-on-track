@@ -1,3 +1,8 @@
+const dotenv = require('dotenv');
+const findConfig = require('find-config');
+
+const { parsed: parsedConfig } = dotenv.config({ path: findConfig('.env') });
+
 const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');
@@ -8,8 +13,6 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { mapValues } = require('lodash');
-
-// const clientEnv = require('./.env.json');
 
 const paths = {
 	CWD: path.resolve(__dirname),
@@ -63,7 +66,7 @@ module.exports = env => {
 		return acc;
 	}, {});
 
-	// Object.assign(envKeys, mapValues(clientEnv, JSON.stringify));
+	Object.assign(envKeys, mapValues(parsedConfig, JSON.stringify));
 
 	// If we don't already have an env specified on the command line with `--env.APP_ENV` from
 	// package.json, grab it from the environment variable.
@@ -80,7 +83,7 @@ module.exports = env => {
 		output: {
 			// With no config, clean-webpack-plugin will remove files in this dir
 			path: paths.DIST,
-			// publicPath: clientEnv.CLOUDFRONT_URL,
+			publicPath: parsedConfig.CLIENT_PUBLIC_PATH,
 			filename: isProd ? 'js/[name].[contenthash:10].js' : 'js/[name].js'
 		},
 		devtool: isProd ? 'source-map' : 'inline-source-map',
@@ -89,7 +92,14 @@ module.exports = env => {
 				{
 					test: /\.tsx?$/,
 					exclude: /node_modules/,
-					use: ['ts-loader']
+					use: [
+						{
+							loader: 'ts-loader',
+							options: {
+								projectReferences: true
+							}
+						}
+					]
 				},
 				{
 					test: /\.css$/,

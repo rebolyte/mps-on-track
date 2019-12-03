@@ -1,4 +1,4 @@
-interface StudentData {
+export interface StudentData {
 	StudentNameSortOrder: number;
 	StudentUSI: number;
 	StudentID: string;
@@ -11,5 +11,3 @@ interface StudentData {
 	TotalGradCreditsEarned: number | null;
 	SurnameGroup: string;
 }
-
-export default StudentData;

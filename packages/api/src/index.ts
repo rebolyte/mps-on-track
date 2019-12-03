@@ -23,3 +23,6 @@ async function main() {
 }
 
 main();
+
+// Export types
+export * from './models';

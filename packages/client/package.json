@@ -12,6 +12,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@mps/api": "0.0.1",
 		"@reach/tabs": "^0.6.2",
 		"chart.js": "^2.9.3",
 		"classnames": "^2.2.6",

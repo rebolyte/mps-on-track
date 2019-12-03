@@ -1,4 +1,4 @@
-interface StudentChartData {
+export interface StudentChartData {
 	StudentNameSortOrder: number | null;
 	StudentUSI: number | null;
 	StudentID: string | null;
@@ -28,4 +28,11 @@ interface StudentChartData {
 	GradRequirementGroup: string | null;
 }
 
-export default StudentChartData;
+export interface StudentChartDataResponse {
+	GradRequirement: string | null;
+	EarnedGradCredits: number | null;
+	RemainingCreditsRequiredByLastGradedQuarter: number | null;
+	RemainingCreditsRequiredByEndOfCurrentGradeLevel: string | null;
+	RemainingCreditsRequiredByGraduation: number | null;
+	DisplayOrder: number | null;
+}
