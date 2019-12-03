@@ -2,7 +2,7 @@ import React from 'react';
 import { configure } from 'mobx';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
 
-import GradRequirements from './screens/gradRequirement';
+import { GradRequirements } from './screens';
 
 // don't allow state modifications outside actions
 configure({ enforceActions: 'observed' });
