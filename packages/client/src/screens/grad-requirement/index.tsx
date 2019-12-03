@@ -5,7 +5,6 @@ import { Bar } from 'react-chartjs-2';
 import { StudentChartDataResponse } from '@mps/api';
 import { useStores } from '../../stores';
 import { Async } from '../../utilities';
-import api from '../../api';
 import { Spinner } from '../../components';
 
 const chartColors = {
@@ -68,7 +67,7 @@ const StudentDataChart: FC<ChartProps> = observer(({ data }: ChartProps) => {
 });
 
 const GradRequirements: FC = observer(() => {
-	const { appStore } = useStores();
+	const { appStore, reportStore } = useStores();
 
 	return (
 		<>
@@ -77,8 +76,7 @@ const GradRequirements: FC = observer(() => {
 				inc
 			</button>
 			<Async
-				promiseFn={api.getStudentChartData}
-				params={['524360-360']}
+				promiseFn={reportStore.getStudentChartData}
 				pending={() => <Spinner />}
 				rejected={(err: Error) => <div>Oops! {err}</div>}
 				fulfilled={(resp: any) => <StudentDataChart data={resp.data} />}

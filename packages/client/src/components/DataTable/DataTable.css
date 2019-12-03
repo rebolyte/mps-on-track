@@ -1,0 +1,35 @@
+table.data-table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: white;
+
+	thead {
+		@apply bg-gray-300;
+	}
+
+	th,
+	td {
+		/* border: 1px solid #999; */
+		padding: 6px 12px;
+	}
+
+	tbody tr:nth-child(2n) {
+		@apply bg-gray-100;
+	}
+
+	.table-header {
+		th {
+			@apply text-center font-semibold border-b border-l border-gray-400;
+
+			&:first-child {
+				@apply border-l-0;
+			}
+		}
+	}
+
+	.column-header {
+		th {
+			@apply text-left font-semibold;
+		}
+	}
+}

@@ -42,6 +42,9 @@ export class Api {
 			.catcher(404, err => {
 				return Promise.reject(err.message);
 			})
+			.catcher(403, err => {
+				return this.handleError(err);
+			})
 			.catcher(401, async err => {
 				return this.handleError(err);
 			})

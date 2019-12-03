@@ -10,7 +10,7 @@ export interface StudentChartData {
 	GradRequirement: string | null;
 	EarnedGradCredits: number | null;
 	RemainingCreditsRequiredByLastGradedQuarter: number | null;
-	RemainingCreditsRequiredByEndOfCurrentGradeLevel: string | null;
+	RemainingCreditsRequiredByEndOfCurrentGradeLevel: number | null;
 	RemainingCreditsRequiredByGraduation: number | null;
 	CreditDeficiencyStatus: string | null;
 	TotalCreditsEarned: number | null;
@@ -29,10 +29,10 @@ export interface StudentChartData {
 }
 
 export interface StudentChartDataResponse {
-	GradRequirement: string | null;
-	EarnedGradCredits: number | null;
-	RemainingCreditsRequiredByLastGradedQuarter: number | null;
-	RemainingCreditsRequiredByEndOfCurrentGradeLevel: string | null;
-	RemainingCreditsRequiredByGraduation: number | null;
-	DisplayOrder: number | null;
+	GradRequirement: string;
+	EarnedGradCredits: number;
+	RemainingCreditsRequiredByLastGradedQuarter: number;
+	RemainingCreditsRequiredByEndOfCurrentGradeLevel: number;
+	RemainingCreditsRequiredByGraduation: number;
+	DisplayOrder: number;
 }

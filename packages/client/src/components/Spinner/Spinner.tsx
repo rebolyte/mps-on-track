@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
 
+import './Spinner.css';
+
 const Spinner: FC = () => (
 	<div className="w-12 mx-auto">
-		<span className="icon-spinner text-gray-700 spin" />
+		<div className="la-line-scale la-dark">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
 );
 

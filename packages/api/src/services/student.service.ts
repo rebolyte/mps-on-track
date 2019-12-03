@@ -13,6 +13,7 @@ export default class StudentService {
 		const data = await this.db.query<StudentChartDataResponse>`SELECT GradRequirement,
 			EarnedGradCredits,
 			RemainingCreditsRequiredByLastGradedQuarter,
+			RemainingCreditsRequiredByEndOfCurrentGradeLevel,
 			RemainingCreditsRequiredByGraduation,
 			DisplayOrder
 		FROM [gradCredits].[StudentsChartData]

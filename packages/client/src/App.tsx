@@ -2,29 +2,53 @@ import React, { FC, useState } from 'react';
 import { configure } from 'mobx';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
 
-import { GradRequirements } from './screens';
+import { GradRequirements, GradeBreakdown } from './screens';
 import { useOnMount } from './utilities';
 import api from './api';
+import { useStores } from './stores';
+import { ApiResponse } from '@mps/api';
 
 // don't allow state modifications outside actions
 configure({ enforceActions: 'observed' });
 
+api.registerBadRequestHandler((resp: ApiResponse<any>) => {
+	if ('message' in resp) {
+		alert(resp.message);
+	}
+	if ('errors' in resp) {
+		resp.errors.forEach(err => console.error(err.message));
+	}
+});
+
 const App: FC = () => {
+	const { reportStore } = useStores();
 	const [hasToken, setHasToken] = useState(false);
+	const [hasStudent, setHasStudent] = useState(false);
 
 	const isProd = process.env.APP_ENV && /^prod/i.test(process.env.APP_ENV);
 
 	useOnMount(() => {
-		const token = new URLSearchParams(window.location.search).get('token');
+		const params = new URLSearchParams(window.location.search);
+		const token = params.get('token');
+		const student = params.get('student');
 
 		if (token !== null) {
 			api.setBearerToken(token);
 			setHasToken(true);
 		}
+
+		if (student !== null) {
+			reportStore.setStudent(student);
+			setHasStudent(true);
+		}
 	});
 
 	if (!hasToken) {
-		return <div>Unauthorized</div>;
+		return <div>No authorization token found</div>;
+	}
+
+	if (!hasStudent) {
+		return <div>No student ID specified</div>;
 	}
 
 	return (
@@ -40,11 +64,10 @@ const App: FC = () => {
 
 					<TabPanels>
 						<TabPanel>
-							<div>tab 1</div>
 							<GradRequirements />
 						</TabPanel>
 						<TabPanel>
-							<div>tab 2</div>
+							<GradeBreakdown />
 						</TabPanel>
 						<TabPanel>
 							<div>tab 3</div>

@@ -1,5 +1,9 @@
+export interface ErrorItem {
+	message: string;
+}
+
 export interface ApiResponse<T> {
 	data: T;
-	errors: string[];
+	errors: ErrorItem[];
 	message?: string;
 }
