@@ -1,6 +1,6 @@
 import wretch from 'wretch';
 
-import { ApiResponse, StudentChartDataResponse } from '@mps/api';
+import { ApiResponse, StudentDataResponse, StudentGradeBreakdownResponse } from '@mps/api';
 
 const { API_URL } = process.env;
 
@@ -53,9 +53,14 @@ export class Api {
 			})
 			.resolve(chain => chain.json());
 
-	getStudentChartData = (studentId: string) =>
-		this._base(`/students/${studentId}/student-chart-data`).get() as Promise<
-			ApiResponse<StudentChartDataResponse[]>
+	getStudentData = (studentId: string) =>
+		this._base(`/students/${studentId}/student-data`).get() as Promise<
+			ApiResponse<StudentDataResponse[]>
+		>;
+
+	getStudentGradeBreakdown = (studentId: string) =>
+		this._base(`/students/${studentId}/student-grade-breakdown`).get() as Promise<
+			ApiResponse<StudentGradeBreakdownResponse[]>
 		>;
 }
 

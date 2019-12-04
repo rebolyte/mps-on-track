@@ -28,7 +28,7 @@ export interface StudentChartData {
 	GradRequirementGroup: string | null;
 }
 
-export interface StudentChartDataResponse {
+export interface StudentGradeBreakdownResponse {
 	GradRequirement: string;
 	EarnedGradCredits: number;
 	RemainingCreditsRequiredByLastGradedQuarter: number;

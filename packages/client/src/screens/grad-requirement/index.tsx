@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Bar } from 'react-chartjs-2';
 
-import { StudentChartDataResponse } from '@mps/api';
+import { StudentGradeBreakdownResponse } from '@mps/api';
 import { useStores } from '../../stores';
 import { Async } from '../../utilities';
 import { Spinner } from '../../components';
@@ -18,7 +18,7 @@ const chartColors = {
 };
 
 interface ChartProps {
-	data: StudentChartDataResponse[];
+	data: StudentGradeBreakdownResponse[];
 }
 
 const StudentDataChart: FC<ChartProps> = observer(({ data }: ChartProps) => {
@@ -67,21 +67,15 @@ const StudentDataChart: FC<ChartProps> = observer(({ data }: ChartProps) => {
 });
 
 const GradRequirements: FC = observer(() => {
-	const { appStore, reportStore } = useStores();
+	const { reportStore } = useStores();
 
 	return (
-		<>
-			grad requirements {appStore.count}
-			<button className="btn" onClick={appStore.increment}>
-				inc
-			</button>
-			<Async
-				promiseFn={reportStore.getStudentChartData}
-				pending={() => <Spinner />}
-				rejected={(err: Error) => <div>Oops! {err}</div>}
-				fulfilled={(resp: any) => <StudentDataChart data={resp.data} />}
-			/>
-		</>
+		<Async
+			promiseFn={reportStore.getStudentGradeBreakdown}
+			pending={() => <Spinner />}
+			rejected={(err: Error) => <div>Oops! {err}</div>}
+			fulfilled={(resp: any) => <StudentDataChart data={resp.data} />}
+		/>
 	);
 });
 

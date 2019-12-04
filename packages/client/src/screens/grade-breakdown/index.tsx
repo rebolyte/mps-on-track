@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { StudentChartDataResponse } from '@mps/api';
+import { StudentGradeBreakdownResponse } from '@mps/api';
 import { useStores } from '../../stores';
 import { Async, uniqueIdRandom } from '../../utilities';
 import { Spinner, DataTable } from '../../components';
 
-interface ChartProps {
-	data: StudentChartDataResponse[];
+interface GradeTableProps {
+	data: StudentGradeBreakdownResponse[];
 }
 
-const GradeTable: FC<ChartProps> = observer(({ data }: ChartProps) => {
+const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => {
 	return (
 		<DataTable
 			cols={[
@@ -73,7 +73,7 @@ const StudentGradeBreakdown: FC = observer(() => {
 	return (
 		<>
 			<Async
-				promiseFn={reportStore.getStudentChartData}
+				promiseFn={reportStore.getStudentGradeBreakdown}
 				pending={() => <Spinner />}
 				rejected={(err: Error) => <div>Oops! {err}</div>}
 				fulfilled={(resp: any) => <GradeTable data={resp.data} />}

@@ -18,17 +18,35 @@ export default class StudentController implements Controller {
 
 	private initializeRoutes() {
 		this.router.get(
-			`${this.path}/:id/student-chart-data`,
+			`${this.path}/:id/student-grade-breakdown`,
 			authorizationMiddleware('id'),
-			this.getStudentChartData
+			this.getStudentGradeBreakdown
+		);
+
+		this.router.get(
+			`${this.path}/:id/student-data`,
+			authorizationMiddleware('id'),
+			this.getStudentData
 		);
 	}
 
-	private getStudentChartData: RequestHandler = async (req, res, next) => {
+	private getStudentGradeBreakdown: RequestHandler = async (req, res, next) => {
 		const { id } = req.params;
 
 		try {
-			const data = await this.studentService.getChartDataForStudent(id);
+			const data = await this.studentService.getGradeBreakdownForStudent(id);
+
+			res.json(data);
+		} catch (err) {
+			next(err);
+		}
+	};
+
+	private getStudentData: RequestHandler = async (req, res, next) => {
+		const { id } = req.params;
+
+		try {
+			const data = await this.studentService.getStudentData(id);
 
 			res.json(data);
 		} catch (err) {

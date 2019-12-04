@@ -11,3 +11,12 @@ export interface StudentData {
 	TotalGradCreditsEarned: number | null;
 	SurnameGroup: string;
 }
+
+export interface StudentDataResponse {
+	StudentName: string;
+	LastGradedQtr: string;
+	CurrentGradeLevel: string;
+	CreditDeficiencyStatus: string;
+	TotalCreditsEarned: number;
+	TotalGradCreditsEarned: number;
+}

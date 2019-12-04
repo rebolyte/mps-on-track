@@ -1,6 +1,6 @@
 import * as sql from 'mssql';
 
-import { StudentChartDataResponse } from '../models';
+import { StudentGradeBreakdownResponse, StudentDataResponse } from '../models';
 
 export default class StudentService {
 	private db: sql.ConnectionPool;
@@ -9,8 +9,8 @@ export default class StudentService {
 		this.db = db;
 	}
 
-	async getChartDataForStudent(studentId: string) {
-		const data = await this.db.query<StudentChartDataResponse>`SELECT GradRequirement,
+	async getGradeBreakdownForStudent(studentId: string) {
+		const data = await this.db.query<StudentGradeBreakdownResponse>`SELECT GradRequirement,
 			EarnedGradCredits,
 			RemainingCreditsRequiredByLastGradedQuarter,
 			RemainingCreditsRequiredByEndOfCurrentGradeLevel,
@@ -21,5 +21,18 @@ export default class StudentService {
 		ORDER BY DisplayOrder`;
 
 		return data.recordset;
+	}
+
+	async getStudentData(studentId: string) {
+		const data = await this.db.query<StudentDataResponse>`SELECT StudentName,
+			TotalCreditsEarned,
+			TotalGradCreditsEarned,
+			CurrentGradeLevel,
+			LastGradedQtr,
+			CreditDeficiencyStatus
+		FROM [gradCredits].[StudentsData]
+		WHERE StudentID = ${studentId}`;
+
+		return data.recordset[0];
 	}
 }

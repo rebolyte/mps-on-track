@@ -10,7 +10,11 @@ export class ReportStore {
 		this.studentId = studentId;
 	};
 
-	getStudentChartData = async () => {
-		return api.getStudentChartData(this.studentId);
+	getStudentData = async () => {
+		return api.getStudentData(this.studentId);
+	};
+
+	getStudentGradeBreakdown = async () => {
+		return api.getStudentGradeBreakdown(this.studentId);
 	};
 }

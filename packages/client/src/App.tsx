@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { configure } from 'mobx';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
 
-import { GradRequirements, GradeBreakdown } from './screens';
+import { GradRequirements, GradeBreakdown, AtAGlance } from './screens';
 import { useOnMount } from './utilities';
 import api from './api';
 import { useStores } from './stores';
@@ -70,7 +70,7 @@ const App: FC = () => {
 							<GradeBreakdown />
 						</TabPanel>
 						<TabPanel>
-							<div>tab 3</div>
+							<AtAGlance />
 						</TabPanel>
 						<TabPanel>
 							<div>tab 4</div>
