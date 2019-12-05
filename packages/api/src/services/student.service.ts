@@ -7,6 +7,19 @@ import {
 	StudentAtAGlanceResponse
 } from '../models';
 
+interface StudentGradeBreakdownQuery {
+	GradRequirement: string;
+	EarnedGradCredits: number;
+	RemainingCreditsRequiredByLastGradedQuarter: number;
+	RemainingCreditsRequiredByEndOfCurrentGradeLevel: number;
+	RemainingCreditsRequiredByGraduation: number;
+	TotalGradCredits: number;
+	TotalRequiredByLastGradedQuarter: number;
+	TotalRequiredByEndOfCurrentGradeLevel: number;
+	TotalRequiredByGraduation: number;
+	DisplayOrder: number;
+}
+
 interface StudentAtAGlanceQuery {
 	GradRequirement: string;
 	GradRequirementGroup: string;
@@ -26,18 +39,41 @@ export default class StudentService {
 		this.db = db;
 	}
 
-	async getGradeBreakdownForStudent(studentId: string): Promise<StudentGradeBreakdownResponse[]> {
-		const data = await this.db.query<StudentGradeBreakdownResponse>`SELECT GradRequirement,
+	async getGradeBreakdownForStudent(studentId: string): Promise<StudentGradeBreakdownResponse> {
+		const data = await this.db.query<StudentGradeBreakdownQuery>`SELECT GradRequirement,
 			EarnedGradCredits,
 			RemainingCreditsRequiredByLastGradedQuarter,
 			RemainingCreditsRequiredByEndOfCurrentGradeLevel,
 			RemainingCreditsRequiredByGraduation,
+			SUM(EarnedGradCredits) OVER () as TotalGradCredits,
+			SUM(RemainingCreditsRequiredByLastGradedQuarter) OVER () as TotalRequiredByLastGradedQuarter,
+			SUM(RemainingCreditsRequiredByEndOfCurrentGradeLevel) OVER () as TotalRequiredByEndOfCurrentGradeLevel,
+			SUM(RemainingCreditsRequiredByGraduation) OVER () as TotalRequiredByGraduation,
 			DisplayOrder
 		FROM [gradCredits].[StudentsChartData]
 		WHERE StudentID = ${studentId}
 		ORDER BY DisplayOrder`;
 
-		return data.recordset;
+		const items = data.recordset.map(item => {
+			const {
+				TotalGradCredits,
+				TotalRequiredByLastGradedQuarter,
+				TotalRequiredByEndOfCurrentGradeLevel,
+				TotalRequiredByGraduation,
+				...rest
+			} = item;
+
+			return rest;
+		});
+
+		return {
+			TotalGradCredits: data.recordset[0].TotalGradCredits,
+			TotalRequiredByLastGradedQuarter: data.recordset[0].TotalRequiredByLastGradedQuarter,
+			TotalRequiredByEndOfCurrentGradeLevel:
+				data.recordset[0].TotalRequiredByEndOfCurrentGradeLevel,
+			TotalRequiredByGraduation: data.recordset[0].TotalRequiredByGraduation,
+			Items: items
+		};
 	}
 
 	async getAtAGlanceForStudent(studentId: string): Promise<StudentAtAGlanceResponse> {

@@ -28,13 +28,21 @@ export interface StudentChartData {
 	GradRequirementGroup: string | null;
 }
 
-export interface StudentGradeBreakdownResponse {
+export interface StudentGradeBreakdownItem {
 	GradRequirement: string;
 	EarnedGradCredits: number;
 	RemainingCreditsRequiredByLastGradedQuarter: number;
 	RemainingCreditsRequiredByEndOfCurrentGradeLevel: number;
 	RemainingCreditsRequiredByGraduation: number;
 	DisplayOrder: number;
+}
+
+export interface StudentGradeBreakdownResponse {
+	TotalGradCredits: number;
+	TotalRequiredByLastGradedQuarter: number;
+	TotalRequiredByEndOfCurrentGradeLevel: number;
+	TotalRequiredByGraduation: number;
+	Items: StudentGradeBreakdownItem[];
 }
 
 export interface StudentAtAGlanceItem {

@@ -18,27 +18,27 @@ const chartColors = {
 };
 
 interface ChartProps {
-	data: StudentGradeBreakdownResponse[];
+	data: StudentGradeBreakdownResponse;
 }
 
 const StudentDataChart: FC<ChartProps> = observer(({ data }: ChartProps) => {
 	const chartData = {
-		labels: data.map(item => item.GradRequirement),
+		labels: data.Items.map(item => item.GradRequirement),
 		datasets: [
 			{
 				label: 'Earned Credits',
 				backgroundColor: chartColors.blue,
-				data: data.map(item => item.EarnedGradCredits)
+				data: data.Items.map(item => item.EarnedGradCredits)
 			},
 			{
 				label: 'Remaining Credits Required By Last Graded Quarter',
 				backgroundColor: chartColors.red,
-				data: data.map(item => item.RemainingCreditsRequiredByLastGradedQuarter)
+				data: data.Items.map(item => item.RemainingCreditsRequiredByLastGradedQuarter)
 			},
 			{
 				label: 'Remaining Credits Required By Graduation',
 				backgroundColor: chartColors.gray,
-				data: data.map(item => item.RemainingCreditsRequiredByGraduation)
+				data: data.Items.map(item => item.RemainingCreditsRequiredByGraduation)
 			}
 		]
 	};

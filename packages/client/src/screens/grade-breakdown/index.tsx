@@ -7,7 +7,7 @@ import { Async, uniqueIdRandom } from '../../utilities';
 import { Spinner, DataTable } from '../../components';
 
 interface GradeTableProps {
-	data: StudentGradeBreakdownResponse[];
+	data: StudentGradeBreakdownResponse;
 }
 
 const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => {
@@ -26,10 +26,7 @@ const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => 
 				},
 				{ id: 'RemainingCreditsRequiredByGraduation', title: 'Remaining Credits by Graduation' }
 			]}
-			summarize={data => {
-				if (data.length === 0) {
-					return [];
-				}
+			summarize={_data => {
 				return [
 					{
 						id: uniqueIdRandom(),
@@ -37,31 +34,25 @@ const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => 
 							{ id: 'GradRequirement', value: 'Total' },
 							{
 								id: 'EarnedGradCredits',
-								value: data.reduce((acc, cur) => acc + cur.EarnedGradCredits, 0)
+								value: data.TotalGradCredits
 							},
 							{
 								id: 'RemainingCreditsRequiredByLastGradedQuarter',
-								value: data.reduce(
-									(acc, cur) => acc + cur.RemainingCreditsRequiredByLastGradedQuarter,
-									0
-								)
+								value: data.TotalRequiredByLastGradedQuarter
 							},
 							{
 								id: 'RemainingCreditsRequiredByEndOfCurrentGradeLevel',
-								value: data.reduce(
-									(acc, cur) => acc + cur.RemainingCreditsRequiredByEndOfCurrentGradeLevel,
-									0
-								)
+								value: data.TotalRequiredByEndOfCurrentGradeLevel
 							},
 							{
 								id: 'RemainingCreditsRequiredByGraduation',
-								value: data.reduce((acc, cur) => acc + cur.RemainingCreditsRequiredByGraduation, 0)
+								value: data.TotalRequiredByGraduation
 							}
 						]
 					}
 				];
 			}}
-			data={data}
+			data={data.Items}
 			idProp={row => row.GradRequirement}
 		/>
 	);

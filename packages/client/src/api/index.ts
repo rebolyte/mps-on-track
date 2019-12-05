@@ -65,7 +65,7 @@ export class Api {
 
 	getStudentGradeBreakdown = (studentId: string) =>
 		this._base(`/students/${studentId}/grade-breakdown`).get() as Promise<
-			ApiResponse<StudentGradeBreakdownResponse[]>
+			ApiResponse<StudentGradeBreakdownResponse>
 		>;
 
 	getStudentAtAGlance = (studentId: string) =>
