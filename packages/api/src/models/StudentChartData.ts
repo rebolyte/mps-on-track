@@ -36,3 +36,23 @@ export interface StudentGradeBreakdownResponse {
 	RemainingCreditsRequiredByGraduation: number;
 	DisplayOrder: number;
 }
+
+export interface StudentAtAGlanceItem {
+	GradRequirement: string;
+	EarnedGradCredits: number;
+	CreditValueRequired: number;
+	CreditValueRemaining: number;
+	DisplayOrder: number;
+}
+
+export interface StudentAtAGlanceGroup {
+	GradRequirementGroup: string;
+	GradRequirements: StudentAtAGlanceItem[];
+}
+
+export interface StudentAtAGlanceResponse {
+	TotalGradCredits: number;
+	TotalCreditsRequired: number;
+	TotalCreditsRemaining: number;
+	Items: StudentAtAGlanceGroup[];
+}

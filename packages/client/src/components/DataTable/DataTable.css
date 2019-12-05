@@ -4,7 +4,7 @@ table.data-table {
 	background-color: white;
 
 	thead {
-		@apply bg-gray-300;
+		@apply bg-blue-200;
 	}
 
 	th,
@@ -13,7 +13,7 @@ table.data-table {
 		padding: 6px 12px;
 	}
 
-	tbody tr:nth-child(2n) {
+	tbody.striped tr:nth-child(2n) {
 		@apply bg-gray-100;
 	}
 

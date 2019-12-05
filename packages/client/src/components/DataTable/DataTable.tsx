@@ -1,5 +1,6 @@
 import React from 'react';
 import { get } from 'lodash-es';
+import classNames from 'classnames';
 
 import './DataTable.css';
 
@@ -36,6 +37,9 @@ export interface DataTableProps<T, K extends keyof T> {
 	summarize?: (data: T[]) => SummaryMap[];
 	data: T[];
 	idProp: K | ((row: T) => string);
+	styleRow?: (row: T) => string | undefined;
+	styleCell?: (col: string, val: any) => string | undefined;
+	striped?: boolean;
 }
 
 function DataTable<T, K extends keyof T>({
@@ -43,8 +47,15 @@ function DataTable<T, K extends keyof T>({
 	cols,
 	summarize,
 	data,
-	idProp
+	idProp,
+	styleRow,
+	styleCell,
+	striped = true
 }: DataTableProps<T, K>) {
+	const tbodyClasses = classNames({
+		striped
+	});
+
 	return (
 		<table className="data-table m-4 border border-gray-300">
 			<thead className="font-semibold bg-gray-300">
@@ -64,7 +75,7 @@ function DataTable<T, K extends keyof T>({
 					))}
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className={tbodyClasses}>
 				{data.length > 0 ? (
 					data.map(row => {
 						let id;
@@ -74,9 +85,14 @@ function DataTable<T, K extends keyof T>({
 							id = row[idProp];
 						}
 						return (
-							<tr key={id as string}>
+							<tr key={id as string} className={styleRow && styleRow(row)}>
 								{cols.map(col => (
-									<td key={col.id as string}>{get(row, col.id)}</td>
+									<td
+										key={col.id as string}
+										className={styleCell && styleCell(col.id as string, get(row, col.id))}
+									>
+										{get(row, col.id)}
+									</td>
 								))}
 							</tr>
 						);
@@ -86,8 +102,10 @@ function DataTable<T, K extends keyof T>({
 						<td colSpan={cols.length}>No records found</td>
 					</tr>
 				)}
-				{summarize &&
-					summarize(data).map(row => (
+			</tbody>
+			{summarize && (
+				<tfoot>
+					{summarize(data).map(row => (
 						<tr key={row.id} className="font-semibold">
 							{row.values.map(cell => (
 								<td key={cell.id} rowSpan={cell.rowSpan}>
@@ -96,7 +114,8 @@ function DataTable<T, K extends keyof T>({
 							))}
 						</tr>
 					))}
-			</tbody>
+				</tfoot>
+			)}
 		</table>
 	);
 }
