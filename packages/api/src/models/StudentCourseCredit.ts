@@ -15,3 +15,23 @@ export interface StudentCourseCredit {
 	Term: string | null;
 	GradRequirementGroup: string | null;
 }
+
+export interface CourseCreditItem {
+	CourseDetails: string;
+	Credits: number;
+	DisplayOrder: number;
+}
+
+export interface CourseGradeDetails {
+	Grade: string;
+	Courses: CourseCreditItem[];
+}
+
+export interface StudentCourseCreditYear {
+	SchoolYear: string;
+	GradeDetails: CourseGradeDetails[];
+}
+
+export interface StudentCourseCreditResponse {
+	Items: StudentCourseCreditYear[];
+}

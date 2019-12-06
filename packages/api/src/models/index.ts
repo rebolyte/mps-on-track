@@ -5,5 +5,5 @@ export {
 	StudentGradeBreakdownResponse,
 	StudentAtAGlanceResponse
 } from './StudentChartData';
-export { StudentCourseCredit } from './StudentCourseCredit';
+export { StudentCourseCredit, StudentCourseCreditResponse } from './StudentCourseCredit';
 export { StudentData, StudentDataResponse } from './StudentData';

@@ -9776,6 +9776,11 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-table@^7.0.0-beta.28:
+  version "7.0.0-beta.28"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.0.0-beta.28.tgz#f5cd37b09fdbc7f22f472d021c56637d9fae097c"
+  integrity sha512-Ym05FAFNPGU6cid3Uw2W2+tn3mfGqKkLs51dw5FAJyz3fFNV0/i/CrTzHXZbVDA/KO2KNFYUjKGQJxIiDbXb4w==
+
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"

@@ -21,4 +21,8 @@ export class ReportStore {
 	getStudentAtAGlance = async () => {
 		return api.getStudentAtAGlance(this.studentId);
 	};
+
+	getStudentCourseCredits = async () => {
+		return api.getStudentCourseCredits(this.studentId);
+	};
 }

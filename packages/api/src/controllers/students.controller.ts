@@ -34,6 +34,12 @@ export default class StudentController implements Controller {
 			authorizationMiddleware('id'),
 			this.getStudentData
 		);
+
+		this.router.get(
+			`${this.path}/:id/course-credits`,
+			authorizationMiddleware('id'),
+			this.getCourseCredits
+		);
 	}
 
 	private getStudentGradeBreakdown: RequestHandler = async (req, res, next) => {
@@ -65,6 +71,18 @@ export default class StudentController implements Controller {
 
 		try {
 			const data = await this.studentService.getStudentData(id);
+
+			res.json(data);
+		} catch (err) {
+			next(err);
+		}
+	};
+
+	private getCourseCredits: RequestHandler = async (req, res, next) => {
+		const { id } = req.params;
+
+		try {
+			const data = await this.studentService.getCourseCredits(id);
 
 			res.json(data);
 		} catch (err) {

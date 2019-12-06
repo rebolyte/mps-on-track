@@ -4,7 +4,8 @@ import {
 	ApiResponse,
 	StudentDataResponse,
 	StudentGradeBreakdownResponse,
-	StudentAtAGlanceResponse
+	StudentAtAGlanceResponse,
+	StudentCourseCreditResponse
 } from '@mps/api';
 
 const { API_URL } = process.env;
@@ -71,6 +72,11 @@ export class Api {
 	getStudentAtAGlance = (studentId: string) =>
 		this._base(`/students/${studentId}/at-a-glance`).get() as Promise<
 			ApiResponse<StudentAtAGlanceResponse>
+		>;
+
+	getStudentCourseCredits = (studentId: string) =>
+		this._base(`/students/${studentId}/course-credits`).get() as Promise<
+			ApiResponse<StudentCourseCreditResponse>
 		>;
 }
 

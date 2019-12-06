@@ -1,13 +1,25 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
+// import {
+// 	useTable,
+// 	useGroupBy,
+// 	useFilters,
+// 	useSortBy,
+// 	useExpanded,
+// 	usePagination
+// } from 'react-table';
 
-import { StudentGradeBreakdownResponse } from '@mps/api';
+import { StudentGradeBreakdownResponse, StudentCourseCreditResponse } from '@mps/api';
 import { useStores } from '../../stores';
 import { Async, uniqueIdRandom } from '../../utilities';
 import { Spinner, DataTable } from '../../components';
 
 interface GradeTableProps {
 	data: StudentGradeBreakdownResponse;
+}
+
+interface StudentCourseCreditsProps {
+	data: StudentCourseCreditResponse;
 }
 
 const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => {
@@ -58,6 +70,17 @@ const GradeTable: FC<GradeTableProps> = observer(({ data }: GradeTableProps) => 
 	);
 });
 
+const StudentCourseCredits: FC<StudentCourseCreditsProps> = observer(
+	({ data }: StudentCourseCreditsProps) => {
+		return (
+			<>
+				<h2 className="font-bold text-lg">Courses with Credits Breakdown</h2>
+				<pre>{JSON.stringify(data, null, 2)}</pre>
+			</>
+		);
+	}
+);
+
 const StudentGradeBreakdown: FC = observer(() => {
 	const { reportStore } = useStores();
 
@@ -68,6 +91,12 @@ const StudentGradeBreakdown: FC = observer(() => {
 				pending={() => <Spinner />}
 				rejected={(err: Error) => <div>Oops! {err}</div>}
 				fulfilled={(resp: any) => <GradeTable data={resp.data} />}
+			/>
+			<Async
+				promiseFn={reportStore.getStudentCourseCredits}
+				pending={() => <Spinner />}
+				rejected={(err: Error) => <div>Oops! {err}</div>}
+				fulfilled={(resp: any) => <StudentCourseCredits data={resp.data} />}
 			/>
 		</>
 	);

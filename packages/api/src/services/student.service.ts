@@ -6,6 +6,7 @@ import {
 	StudentDataResponse,
 	StudentAtAGlanceResponse
 } from '../models';
+import { StudentCourseCreditResponse } from '../models/StudentCourseCredit';
 
 interface StudentGradeBreakdownQuery {
 	GradRequirement: string;
@@ -29,6 +30,15 @@ interface StudentAtAGlanceQuery {
 	TotalGradCredits: number;
 	TotalCreditsRequired: number;
 	TotalCreditsRemaining: number;
+	DisplayOrder: number;
+}
+
+interface StudentCourseCreditsQuery {
+	CourseDetails: string;
+	SchoolYearWhenTaken: number;
+	Term: string;
+	GradeDetails: string;
+	Credits: number;
 	DisplayOrder: number;
 }
 
@@ -128,5 +138,37 @@ export default class StudentService {
 		WHERE StudentID = ${studentId}`;
 
 		return data.recordset[0];
+	}
+
+	async getCourseCredits(studentId: string): Promise<StudentCourseCreditResponse> {
+		const data = await this.db.query<StudentCourseCreditsQuery>`SELECT CourseDetails,
+			SchoolYearWhenTaken,
+			Term,
+			GradeDetails,
+			Credits,
+			DisplayOrder
+		FROM [gradCredits].[StudentCourseCredits]
+		WHERE StudentID = ${studentId}
+		ORDER BY DisplayOrder`;
+
+		const byYear = groupBy(data.recordset, item => item.SchoolYearWhenTaken);
+
+		const byYearGrade = Object.entries(byYear).map(([year, list]) => {
+			const byGrade = groupBy(list, item => item.GradeDetails);
+
+			const details = Object.entries(byGrade).map(([grade, courses]) => ({
+				Grade: grade,
+				Courses: courses.map(({ SchoolYearWhenTaken, GradeDetails, Term, ...rest }) => rest)
+			}));
+
+			return {
+				SchoolYear: year,
+				GradeDetails: details
+			};
+		});
+
+		return {
+			Items: byYearGrade
+		};
 	}
 }
