@@ -4,7 +4,21 @@ table.data-table {
 	background-color: white;
 
 	thead {
-		@apply bg-blue-200;
+		@apply text-white uppercase border-b border-black;
+
+		tr:first-child {
+			th {
+				@apply bg-edfi-gray;
+
+				&:first-child {
+					@apply rounded-tl-lg;
+				}
+
+				&:last-child {
+					@apply rounded-tr-lg;
+				}
+			}
+		}
 	}
 
 	th,

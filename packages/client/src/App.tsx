@@ -52,7 +52,7 @@ const App: FC = () => {
 	}
 
 	return (
-		<div className="bg-gray-200 flex flex-col min-h-full min-w-lg">
+		<div className="flex flex-col min-h-full min-w-lg font-sans text-sm">
 			<div className="container mx-auto flex-1 px-2 md:px-8 mt-4">
 				<Tabs>
 					<TabList>

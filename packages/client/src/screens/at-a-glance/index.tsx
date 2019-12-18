@@ -81,7 +81,7 @@ const AtAGlanceTable: FC<AtAGlanceTableProps> = observer(({ data }: AtAGlanceTab
 			}}
 			idProp={row => row.name}
 			striped={false}
-			styleRow={row => (row['groupRow'] ? 'font-semibold bg-gray-300' : undefined)}
+			styleRow={row => (row['groupRow'] ? 'font-semibold bg-edfi-lightergray' : undefined)}
 		/>
 	);
 });

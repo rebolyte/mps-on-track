@@ -57,8 +57,8 @@ function DataTable<T, K extends keyof T>({
 	});
 
 	return (
-		<table className="data-table m-4 border border-gray-300">
-			<thead className="font-semibold bg-gray-300">
+		<table className="data-table m-4">
+			<thead className="font-semibold">
 				{headers &&
 					headers.map(row => (
 						<tr key={row.id} className="table-header">

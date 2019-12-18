@@ -7,7 +7,7 @@
 }
 
 [data-reach-tab] {
-	@apply inline-block border-0 m-0 px-2 py-1;
+	@apply inline-block border-0 m-0 px-4 py-2 bg-edfi-lighterblue font-semibold rounded-tl-lg rounded-tr-lg;
 }
 
 /* override Tailwind button base style */
@@ -24,5 +24,5 @@
 }
 
 [data-reach-tab][data-selected] {
-	@apply border-b-2 border-blue-600;
+	@apply bg-edfi-blue;
 }

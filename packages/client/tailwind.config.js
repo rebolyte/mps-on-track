@@ -4,6 +4,21 @@ module.exports = {
 	separator: ':',
 	theme: {
 		colors: {
+			edfi: {
+				default: '#a3c0d9',
+				darkblue: '#23597f',
+				blue: '#a3c0d9',
+				lightblue: '#255b80',
+				lighterblue: '#ccddec',
+				darkgray: '#333333',
+				gray: '#828282',
+				lightgray: '#d6d6d7',
+				lightergray: '#dfdfdf',
+				green: '#0a662f',
+				orange: '#957013',
+				red: '#b30002'
+			},
+
 			transparent: 'transparent',
 
 			black: '#000',
@@ -150,21 +165,8 @@ module.exports = {
 			xl: '1280px'
 		},
 		fontFamily: {
-			sans: [
-				'-apple-system',
-				'BlinkMacSystemFont',
-				'"Segoe UI"',
-				'Roboto',
-				'"Helvetica Neue"',
-				'Arial',
-				'"Noto Sans"',
-				'sans-serif',
-				'"Apple Color Emoji"',
-				'"Segoe UI Emoji"',
-				'"Segoe UI Symbol"',
-				'"Noto Color Emoji"'
-			],
-			serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+			sans: ['Arial', 'sans-serif'],
+			serif: ['"Times New Roman"', 'Georgia', 'Cambria', 'Times', 'serif'],
 			mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace']
 		},
 		fontSize: {
