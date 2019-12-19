@@ -1,0 +1,17 @@
+.course-credits-school-year {
+	@apply font-semibold bg-edfi-lightergray;
+}
+
+.course-credits-grade {
+	@apply font-semibold;
+
+	td:first-child {
+		@apply pl-4;
+	}
+}
+
+.course-credits-course-detail {
+	td:first-child {
+		@apply pl-8;
+	}
+}
