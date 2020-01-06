@@ -38,8 +38,8 @@ Reference the [SQL Server on Docker documentation](https://docs.microsoft.com/en
 1. In Powershell, run migrations (optionally inserting test data):
 
 ```sh
-> cd .\packages\databases\appdb\
-> .\deployAppDb.ps1 -Environment "TEST"
+PS> cd .\packages\databases\appdb\
+PS> .\deployAppDb.ps1 -Environment "TEST"
 ```
 
 Specify "TEST" as the environment to seed the database with test data. The default is "PROD".
@@ -123,6 +123,8 @@ See [lerna add](https://github.com/lerna/lerna/tree/master/commands/add#readme):
 > lerna add lodash
 ```
 
+Or just navigate to the subdirectory and use `yarn add` as usual.
+
 ### Removing a dependency
 
 Currently this must be done directly with Yarn workspaces:
@@ -130,3 +132,5 @@ Currently this must be done directly with Yarn workspaces:
 ```sh
 > yarn workspace @mps/api remove helmet
 ```
+
+Or just navigate to the subdirectory and use `yarn remove` as usual.
