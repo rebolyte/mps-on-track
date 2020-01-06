@@ -38,7 +38,7 @@ try {
 		.toString()
 		.trim();
 } catch (_err) {
-	const hash = process.env.CODEBUILD_RESOLVED_SOURCE_VERSION;
+	const hash = process.env.COMMIT_HASH;
 	if (hash !== undefined) {
 		commitHash = hash.slice(0, 8);
 	}
