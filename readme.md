@@ -80,13 +80,17 @@ TODO
 
 ## Building and deploying
 
-Build TypeScript files in all packages:
-
 ```sh
-$ lerna run build
+$ yarn install
+$ yarn build
+$ yarn package
 ```
 
-This will execute the `build` script specified in the package.json of each package under the `packages/` directory.
+This will:
+
+1. Install dependencies.
+2. Execute the `build` script specified in the package.json of each package under the `packages/` directory.
+3. Execute the `package` script in each package, outputting a dist/ folder with all of its dependencies.
 
 ## Running tests
 

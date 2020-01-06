@@ -1,9 +1,14 @@
 {
 	"name": "root",
 	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		],
+		"nohoist": [
+			"@mps/api/**"
+		]
+	},
 	"scripts": {
 		"api:watch": "lerna run watch --stream --scope @mps/api",
 		"api:start": "lerna run start --stream --scope @mps/api",
@@ -11,9 +16,12 @@
 		"client:dev": "lerna run dev --stream --scope @mps/client",
 		"client:start": "lerna run start --stream --scope @mps/client",
 		"client:build": "lerna run build --stream --scope @mps/client",
+		"build": "lerna run build --stream",
+		"package": "lerna run package --stream",
 		"test": "jest",
 		"fmt": "prettier --write \"packages/*/src/**/*.{js,ts}\" --loglevel warn",
-		"lint": "eslint \"packages/*/src/**/*.{js,ts}\""
+		"lint": "eslint \"packages/*/src/**/*.{js,ts}\"",
+		"clean-deps": "rm -rf node_modules && rm -rf packages/*/node_modules"
 	},
 	"husky": {
 		"hooks": {
@@ -22,7 +30,6 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^24.0.19",
-		"@types/node": "^12.11.1",
 		"@typescript-eslint/eslint-plugin": "^2.4.0",
 		"@typescript-eslint/parser": "^2.4.0",
 		"eslint": "^6.5.1",
@@ -48,7 +55,5 @@
 		"tsconfig-paths": "^3.9.0",
 		"typescript": "^3.7.2"
 	},
-	"dependencies": {
-		"find-config": "^1.0.0"
-	}
+	"dependencies": {}
 }

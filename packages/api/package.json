@@ -10,7 +10,8 @@
     "compile": "tsc --build tsconfig.json",
     "go": "node dist/index.js",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
-    "watch": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts"
+    "watch": "tsc -b -w",
+    "package": "powershell.exe -File ../../scripts/package.ps1"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -20,6 +21,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "express-winston": "^4.0.1",
+    "find-config": "^1.0.0",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
@@ -35,8 +37,8 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/lodash": "^4.14.149",
     "@types/mssql": "^4.3.1",
+    "@types/node": "^12.11.1",
     "@types/vfile-message": "^2.0.0",
-    "nodemon": "^1.19.4",
     "ts-node": "^8.5.2",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.2"

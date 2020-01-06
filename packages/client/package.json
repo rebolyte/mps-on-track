@@ -9,7 +9,8 @@
 		"start": "webpack-dev-server --mode development --env.NODE_ENV=development --env.APP_ENV=development",
 		"prebuild": "node ./scripts/prebuild.js",
 		"build": "webpack --mode production --env.NODE_ENV=production",
-		"test": "jest"
+		"test": "jest",
+		"package": "yarn pack"
 	},
 	"dependencies": {
 		"@mps/api": "0.0.1",
