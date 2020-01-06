@@ -37,6 +37,7 @@ if (Test-Path .\dist\node_modules) {
 	Remove-Item .\dist\node_modules -Recurse -Force
 }
 Copy-Item .\node_modules .\dist\node_modules -Recurse # resolve symlinks
+Copy-Item ..\..\.env .\dist\.env
 
 # back to root
 Set-Location ..\..
