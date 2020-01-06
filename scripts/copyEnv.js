@@ -20,11 +20,7 @@ const writeConfig = () => {
 		return acc;
 	}, {});
 
-	if (!fs.existsSync(envFile)) {
-		fs.writeFileSync(envFile, dotenvify(out));
-	} else {
-		throw new Error(`${envFile} already exists`);
-	}
+	fs.writeFileSync(envFile, dotenvify(out));
 };
 
 exports.writeConfig = writeConfig;
