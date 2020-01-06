@@ -206,7 +206,7 @@ module.exports = env => {
 			ifProd(new webpack.HashedModuleIdsPlugin()),
 			ifProd(
 				new webpack.BannerPlugin({
-					banner: `MPS On Track Application - Copyright 2019 Double Line, Inc. - All Rights Reserved (${commitHash})`
+					banner: `MPS On Track Application - Copyright ${new Date().getFullYear()} Double Line, Inc. - All Rights Reserved (${commitHash})`
 				})
 			)
 		].filter(el => el),

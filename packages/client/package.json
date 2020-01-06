@@ -9,8 +9,7 @@
 		"start": "webpack-dev-server --mode development --env.NODE_ENV=development --env.APP_ENV=development",
 		"prebuild": "node ./scripts/prebuild.js",
 		"build": "webpack --mode production --env.NODE_ENV=production",
-		"test": "jest",
-		"package": "yarn pack"
+		"test": "jest"
 	},
 	"dependencies": {
 		"@mps/api": "0.0.1",
@@ -40,6 +39,8 @@
 		"clean-webpack-plugin": "^3.0.0",
 		"cross-env": "^6.0.3",
 		"css-loader": "^3.2.1",
+		"dotenv": "^8.2.0",
+		"find-config": "^1.0.0",
 		"html-webpack-plugin": "^3.2.0",
 		"identity-obj-proxy": "^3.0.0",
 		"lodash": "^4.17.15",
