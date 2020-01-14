@@ -35,14 +35,12 @@ Reference the [SQL Server on Docker documentation](https://docs.microsoft.com/en
 
 ### Initialize app database
 
-1. In Powershell, run migrations (optionally inserting test data):
+1. In Powershell, run migrations and insert test data:
 
 ```sh
-PS> cd .\packages\databases\appdb\
-PS> .\deployAppDb.ps1 -Environment "TEST"
+PS> cd .\localDev
+PS> .\deployLocalAppDb.ps1
 ```
-
-Specify "TEST" as the environment to seed the database with test data. The default is "PROD".
 
 ## Running the API
 
