@@ -15,6 +15,7 @@ const { JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } = process.env;
 
 export default class Server {
 	public app: express.Application;
+	public readonly publicPaths: string[];
 
 	constructor(controllers: Controller[]) {
 		this.app = express();
@@ -30,6 +31,9 @@ export default class Server {
 				// })
 			]
 		});
+
+		// token route for debugging only
+		this.publicPaths = ['/api', '/api/health', '/api/token'];
 
 		this.initializeSecurity();
 		this.initializeMiddlewares();
@@ -69,7 +73,7 @@ export default class Server {
 				audience: JWT_AUDIENCE as string,
 				issuer: JWT_ISSUER as string
 			}).unless({
-				path: ['/api', '/api/health', '/api/token'] // token route for debugging only
+				path: this.publicPaths
 			})
 		);
 	}
