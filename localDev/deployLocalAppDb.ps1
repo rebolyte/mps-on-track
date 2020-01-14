@@ -1,4 +1,4 @@
-$testConfig = "..\ontrack.config.TEST.json"
+$testConfig = "..\ontrack.config.json"
 
 $config = Get-Content -Raw -Path $testConfig | ConvertFrom-Json
 $appDbConn = "Server=$($config.DB_SERVER),$($config.DB_PORT);Database=$($config.DB_NAME);User Id=$($config.DB_USER);Password='$($config.DB_PASS)';"

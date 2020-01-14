@@ -1,9 +1,6 @@
-import { config } from 'dotenv';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import findConfig from 'find-config';
+import { getConfig } from './get-config';
 
-config({ path: findConfig('.env') });
+getConfig();
 
 import Server from './server';
 import { connect } from './db-connect';

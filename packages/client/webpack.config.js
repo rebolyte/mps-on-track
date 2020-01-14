@@ -1,7 +1,6 @@
-const dotenv = require('dotenv');
-const findConfig = require('find-config');
+const { getConfig } = require('../../scripts/get-config');
 
-const { parsed: parsedConfig } = dotenv.config({ path: findConfig('.env') });
+const parsedConfig = getConfig();
 
 const webpack = require('webpack');
 const path = require('path');

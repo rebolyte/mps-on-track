@@ -1,8 +1,8 @@
-$stageDir = Join-Path $env:SystemDrive "Users\James\proj\doubleline\minneapolis\ontrack-staging"
+$stageDir = Join-Path $env:SystemDrive "ontrack-staging"
 $artifactZip = Join-Path $stageDir "artifact.zip"
 $artifactDir = Join-Path $stageDir "artifact"
 
-$prodConfig = ".\ontrack.config.PROD.json"
+$prodConfig = ".\ontrack.config.json"
 
 $deployDir = Join-Path $env:SystemDrive "ontrack"
 
