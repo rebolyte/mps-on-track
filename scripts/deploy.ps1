@@ -1,4 +1,4 @@
-$stageDir = Join-Path $env:SystemDrive "ontrack-staging"
+$stageDir = Join-Path $env:SystemDrive "ontrack-deploy"
 $artifactZip = Join-Path $stageDir "artifact.zip"
 $artifactDir = Join-Path $stageDir "artifact"
 
@@ -41,8 +41,6 @@ Copy-Item $clientDir $clientOut -Recurse -Force
 Write-Host "Running RoundhousE..."
 $config = Get-Content -Raw -Path $prodConfig | ConvertFrom-Json
 $appDbConn = "Server=$($config.DB_SERVER),$($config.DB_PORT);Database=$($config.DB_NAME);User Id=$($config.DB_USER);Password='$($config.DB_PASS)';"
-
-Write-Host $appDbConn
 
 $cwd = Get-Location
 
