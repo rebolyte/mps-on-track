@@ -28,9 +28,8 @@ Write-Host "Unzipping archive..."
 Expand-Archive $artifactZip -DestinationPath $artifactDir
 
 Write-Host "Deploying API files..."
-$apiDir = Join-Path $artifactDir "api\*"
-$apiOut = Join-Path $deployDir "api"
-Copy-Item $apiDir $apiOut -Recurse -Force
+$apiDir = Join-Path $artifactDir "api"
+Copy-Item $apiDir $deployDir -Recurse -Force
 
 Write-Host "Deploying web client files..."
 $clientDir = Join-Path $artifactDir "client\*"
@@ -61,7 +60,7 @@ $pm2Check = & pm2 id ontrack
 
 if ($pm2Check -eq "[]") {
 	Write-Host "Starting Node API..."
-	$api = Join-Path $apiOut "index.js"
+	$api = Join-Path (Join-Path $deployDir "api") "index.js"
 	pm2 start -i 2 --name ontrack $api
 	pm2 save
 }
