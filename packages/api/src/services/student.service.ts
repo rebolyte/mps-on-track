@@ -1,5 +1,5 @@
 import * as sql from 'mssql';
-import { groupBy } from 'lodash';
+import { groupBy, isEmpty } from 'lodash';
 
 import {
 	StudentGradeBreakdownResponse,
@@ -50,7 +50,7 @@ export default class StudentService {
 	}
 
 	async getGradeBreakdownForStudent(studentId: string): Promise<StudentGradeBreakdownResponse> {
-		const data = await this.db.query<StudentGradeBreakdownQuery>`SELECT GradRequirement,
+		const { recordset } = await this.db.query<StudentGradeBreakdownQuery>`SELECT GradRequirement,
 			EarnedGradCredits,
 			RemainingCreditsRequiredByLastGradedQuarter,
 			RemainingCreditsRequiredByEndOfCurrentGradeLevel,
@@ -64,7 +64,7 @@ export default class StudentService {
 		WHERE StudentID = ${studentId}
 		ORDER BY DisplayOrder`;
 
-		const items = data.recordset.map(item => {
+		const items = recordset.map(item => {
 			const {
 				TotalGradCredits,
 				TotalRequiredByLastGradedQuarter,
@@ -77,17 +77,20 @@ export default class StudentService {
 		});
 
 		return {
-			TotalGradCredits: data.recordset[0].TotalGradCredits,
-			TotalRequiredByLastGradedQuarter: data.recordset[0].TotalRequiredByLastGradedQuarter,
-			TotalRequiredByEndOfCurrentGradeLevel:
-				data.recordset[0].TotalRequiredByEndOfCurrentGradeLevel,
-			TotalRequiredByGraduation: data.recordset[0].TotalRequiredByGraduation,
+			TotalGradCredits: isEmpty(recordset) ? 0 : recordset[0].TotalGradCredits,
+			TotalRequiredByLastGradedQuarter: isEmpty(recordset)
+				? 0
+				: recordset[0].TotalRequiredByLastGradedQuarter,
+			TotalRequiredByEndOfCurrentGradeLevel: isEmpty(recordset)
+				? 0
+				: recordset[0].TotalRequiredByEndOfCurrentGradeLevel,
+			TotalRequiredByGraduation: isEmpty(recordset) ? 0 : recordset[0].TotalRequiredByGraduation,
 			Items: items
 		};
 	}
 
 	async getAtAGlanceForStudent(studentId: string): Promise<StudentAtAGlanceResponse> {
-		const data = await this.db.query<StudentAtAGlanceQuery>`SELECT GradRequirement,
+		const { recordset } = await this.db.query<StudentAtAGlanceQuery>`SELECT GradRequirement,
 			GradRequirementGroup,
 			EarnedGradCredits,
 			CreditValueRequired,
@@ -100,7 +103,16 @@ export default class StudentService {
 		WHERE StudentID = ${studentId}
 		ORDER BY DisplayOrder`;
 
-		const byGroup = groupBy(data.recordset, item => item.GradRequirementGroup);
+		if (recordset.length === 0) {
+			return {
+				TotalGradCredits: 0,
+				TotalCreditsRequired: 0,
+				TotalCreditsRemaining: 0,
+				Items: []
+			};
+		}
+
+		const byGroup = groupBy(recordset, item => item.GradRequirementGroup);
 
 		const items = Object.entries(byGroup).map(([groupName, list]) => {
 			const reqs = list.map(
@@ -120,15 +132,15 @@ export default class StudentService {
 		});
 
 		return {
-			TotalGradCredits: data.recordset[0].TotalGradCredits,
-			TotalCreditsRequired: data.recordset[0].TotalCreditsRequired,
-			TotalCreditsRemaining: data.recordset[0].TotalCreditsRemaining,
+			TotalGradCredits: recordset[0].TotalGradCredits,
+			TotalCreditsRequired: recordset[0].TotalCreditsRequired,
+			TotalCreditsRemaining: recordset[0].TotalCreditsRemaining,
 			Items: items
 		};
 	}
 
-	async getStudentData(studentId: string): Promise<StudentDataResponse> {
-		const data = await this.db.query<StudentDataResponse>`SELECT StudentName,
+	async getStudentData(studentId: string): Promise<StudentDataResponse | null> {
+		const { recordset } = await this.db.query<StudentDataResponse>`SELECT StudentName,
 			TotalCreditsEarned,
 			TotalGradCreditsEarned,
 			CurrentGradeLevel,
@@ -137,11 +149,11 @@ export default class StudentService {
 		FROM [gradCredits].[StudentsData]
 		WHERE StudentID = ${studentId}`;
 
-		return data.recordset[0];
+		return isEmpty(recordset) ? null : recordset[0];
 	}
 
 	async getCourseCredits(studentId: string): Promise<StudentCourseCreditResponse> {
-		const data = await this.db.query<StudentCourseCreditsQuery>`SELECT CourseDetails,
+		const { recordset } = await this.db.query<StudentCourseCreditsQuery>`SELECT CourseDetails,
 			SchoolYearWhenTaken,
 			Term,
 			GradeDetails,
@@ -151,7 +163,13 @@ export default class StudentService {
 		WHERE StudentID = ${studentId}
 		ORDER BY DisplayOrder`;
 
-		const byYear = groupBy(data.recordset, item => item.SchoolYearWhenTaken);
+		if (isEmpty(recordset)) {
+			return {
+				Items: []
+			};
+		}
+
+		const byYear = groupBy(recordset, item => item.SchoolYearWhenTaken);
 
 		const byYearGrade = Object.entries(byYear).map(([year, list]) => {
 			const byGrade = groupBy(list, item => item.GradeDetails);

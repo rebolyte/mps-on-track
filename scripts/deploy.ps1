@@ -6,7 +6,15 @@ $prodConfig = ".\ontrack.config.json"
 
 $deployDir = Join-Path $env:SystemDrive "inetpub\wwwroot"
 $apiDeployDir = Join-Path $deployDir "OnTrackApi"
-$clientDeployDir = Join-Path $deployDir "OnTrackClient"
+$clientDeployDir = Join-Path $deployDir "OnTrack"
+
+if (!(Test-Path $apiDeployDir)) {
+	New-Item -Path $apiDeployDir -Type Directory
+}
+
+if (!(Test-Path $clientDeployDir)) {
+	New-Item -Path $clientDeployDir -Type Directory
+}
 
 Write-Host "Looking for $($artifactZip)"
 
@@ -23,9 +31,6 @@ if (Test-Path $artifactDir) {
 
 # Grab permanent config file (which contains connstring, etc), copy to deploy
 Write-Host "Deploying $($prodConfig)..."
-if (!(Test-Path $apiDeployDir)) {
-	New-Item -Path $apiDeployDir -Type Directory
-}
 Copy-Item $prodConfig $apiDeployDir -Force
 
 # Unzip TeamCity artifact that has been manually uploaded to the staging directory
@@ -37,7 +42,7 @@ $apiDir = Join-Path $artifactDir "api\*"
 Copy-Item $apiDir $apiDeployDir -Recurse -Force
 
 Write-Host "Deploying web client files..."
-$clientDir = Join-Path $artifactDir "client"
+$clientDir = Join-Path $artifactDir "client\*"
 Copy-Item $clientDir $clientDeployDir -Recurse -Force
 
 # call RoundhousE to run all migrations

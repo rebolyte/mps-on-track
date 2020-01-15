@@ -7,33 +7,37 @@ import { Async, uniqueIdRandom } from '../../utilities';
 import { Spinner, DataTable } from '../../components';
 
 interface StudentDataProps {
-	data: StudentDataResponse;
+	data: StudentDataResponse | null;
 }
 interface AtAGlanceTableProps {
 	data: StudentAtAGlanceResponse;
 }
 
 const StudentData: FC<StudentDataProps> = observer(({ data }: StudentDataProps) => {
-	return (
-		<DataTable
-			cols={[
-				{ id: 'StudentName', title: '' },
-				{ id: 'TotalGradCreditsEarned', title: 'Total Grad Credits Earned' },
-				{
-					id: 'TotalCreditsEarned',
-					title: 'Total Credits Earned'
-				},
-				{
-					id: 'CurrentGradeLevel',
-					title: 'Current Grade Level'
-				},
-				{ id: 'LastGradedQtr', title: 'Last Graded Quarter' },
-				{ id: 'CreditDeficiencyStatus', title: 'Credit Deficiency Status' }
-			]}
-			data={[data]}
-			idProp={row => row.StudentName}
-		/>
-	);
+	if (data === null) {
+		return <p>Student data not found.</p>;
+	} else {
+		return (
+			<DataTable
+				cols={[
+					{ id: 'StudentName', title: '' },
+					{ id: 'TotalGradCreditsEarned', title: 'Total Grad Credits Earned' },
+					{
+						id: 'TotalCreditsEarned',
+						title: 'Total Credits Earned'
+					},
+					{
+						id: 'CurrentGradeLevel',
+						title: 'Current Grade Level'
+					},
+					{ id: 'LastGradedQtr', title: 'Last Graded Quarter' },
+					{ id: 'CreditDeficiencyStatus', title: 'Credit Deficiency Status' }
+				]}
+				data={[data]}
+				idProp={row => row.StudentName}
+			/>
+		);
+	}
 });
 
 interface Item {
